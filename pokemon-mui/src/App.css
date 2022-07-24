@@ -12,3 +12,27 @@ ul {
     gap: 10px;
     justify-content: right;
 }
+.water {
+    background: #aabaed8c;
+    color: #174aee;
+}
+.fire {
+    background: #edac8470;
+    color: #fb731b;
+}
+.grass {
+    background: #5c9a6f66;
+    color: #069131;
+}
+.poison {
+    background: #673ab76b;
+    color: #6c2ce0;
+}
+.flying {
+    background: #52a0c34d;
+    color: #0e7aab;
+}
+.bug {
+    background: #8ac56975;
+    color: #2b7800;
+}

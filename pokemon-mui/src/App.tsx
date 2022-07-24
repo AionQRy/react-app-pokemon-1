@@ -1,4 +1,5 @@
 import React, { useEffect} from 'react';
+import './App.css';
 import usePokemon from './Hook/usePokemon';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,7 +7,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/system';
-import { grey } from '@mui/material/colors';
+import { grey, teal } from '@mui/material/colors';
 //import card  
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -16,6 +17,7 @@ import { Button, CardActionArea, CardActions, TextField, Chip } from '@mui/mater
 import Footer from './component/Footer/Footer';
 import CardPokemon from './component/Pokemon/Card/CardPokemon';
 
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 // import bgPokemon from './images/bg-pokemon.webp';
 
 const MyContainer = styled('div')({
@@ -62,7 +64,7 @@ const App = () => {
                       {
                         pokemon.map( (pokemon) => (
                           <Grid key={pokemon.id} item xs={6} sm={4} md={3}>
-                          <Card className={`CardPokemon cardPokemon-${pokemon.name.english}`}>
+                          <Card className={`CardPokemon cardPokemon-${pokemon.name.english} type-${pokemon.type[0].toLowerCase()}`}>
                             <CardActionArea>
                               <CardMedia
                                 component="img"
@@ -89,12 +91,20 @@ const App = () => {
                                 >
                                   {pokemon.name.japanese}
                                 </Typography>
-                                <Chip label={pokemon.type} sx={{ fontSize: 13 }} />                                
+
+                                {pokemon.type.map((listType) =>(
+                                    <Chip className={listType.toLowerCase()} label={listType} sx={{ fontSize: 13, mr: "5px" }} /> 
+                                  ))}
+                                                               
                               </CardContent>
                             </CardActionArea>
                             <CardActions>
-                              <Button size="small" color="primary">
-                                Select
+                              <Button variant="contained" size="large" color="primary" 
+                              sx={{width: "100%", bgcolor: teal[500], color: "#fff",
+                              '&:hover': {
+                                backgroundColor: teal[800],
+                              },}}>
+                              <AddCircleOutlineOutlinedIcon /> Select
                               </Button>
                             </CardActions>
                           </Card>
