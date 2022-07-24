@@ -1,6 +1,4 @@
-import React, { useEffect} from 'react';
-import usePokemon from './Hook/usePokemon';
-
+import React, {useState, useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -12,11 +10,18 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, TextField, Chip } from '@mui/material';
+import { Button, CardActionArea, CardActions, TextField } from '@mui/material';
 import Footer from './component/Footer/Footer';
-import CardPokemon from './component/Pokemon/Card/CardPokemon';
 
-// import bgPokemon from './images/bg-pokemon.webp';
+interface Pokemon {
+  id: number;
+  name: {
+    english: string;
+    japanese: string;
+  }
+  type: string[];
+  base: Record<string, number>;
+}
 
 const MyContainer = styled('div')({
   color: '#000',
@@ -25,27 +30,33 @@ const MyContainer = styled('div')({
   borderRadius: 0,
 })
 
-const App = () => {
-  const {
-    pokemon,
-    filter,
-    setFilter
-  } = usePokemon();
+const appPokemonOlder = () => {
+  //ใช้รับค่า จาก input ด้วย filter ส่งค่าลงไปใน Text ด้วย onChange โดยใช้ setFilter by useState
+  const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    console.log("Pokemon Changed")
-  }, [pokemon] );
+  const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
 
+  useEffect(() =>{
+    fetch('/pokemon.json')
+      .then(response => response.json())
+      .then((pokemon: Pokemon[]) => setAllPokemon(pokemon))
+  }, [] );
 
+  const lowercaseFilter = filter.toLowerCase();
+  const pokemon = allPokemon
+    .filter( ({ name: {english}}) => english.toLowerCase()
+    .includes(lowercaseFilter)
+  
+  ).slice(0, 10);
   return (
     <React.Fragment>
       <CssBaseline />
       <MyContainer>
-        <Container maxWidth="lg" sx={{ bgcolor: grey[200] , height: 'auto', pt: "5em", pb: "5em" }}>
+        <Container maxWidth="lg"  sx={{ bgcolor: grey[200] , height: '100vh' }}>
           <Box>
             <TextField 
             id="outlined-basic" 
-            label="Search Your Pokemon !!" 
+            label="Outlined" 
             variant="outlined"
             sx={{ width: '100%' }} 
             value={filter}
@@ -56,8 +67,8 @@ const App = () => {
             {filter}
           </Typography>
           </Box>
-          <Box sx={{pt: "2em"}}>
-            <Grid container spacing={2}>
+          <Box>
+            <Grid container>
                     
                       {
                         pokemon.map( (pokemon) => (
@@ -66,30 +77,18 @@ const App = () => {
                             <CardActionArea>
                               <CardMedia
                                 component="img"
-                                sx={
-                                  {
-                                    height: "175px",
-                                    width: "auto",
-                                    margin: "0 auto",
-                                    padding: "25px 0",
-                                    // backgroundImage: `url(${bgPokemon})`,                      
-                                  }
-                                }
-                                image={`/pokemon/${pokemon.name.english.toLowerCase()}.jpg`}
+                                height="140"
+                                image="/static/images/cards/contemplative-reptile.jpg"
                                 alt="green iguana"
                               />
                               <CardContent>
-                                <Typography gutterBottom variant="h3" component="div" 
-                                sx={{ fontSize: 21 } }
-                                >
+                                <Typography gutterBottom variant="h5" component="div">
                                   {pokemon.name.english}
                                 </Typography>
-                                <Typography gutterBottom variant="h4" component="div" 
-                                sx={{ fontSize: 16 } }
-                                >
-                                  {pokemon.name.japanese}
+                                <Typography variant="body2" color="text.secondary">
+                                  Lizards are a widespread group of squamate reptiles, with over 6,000
+                                  species, ranging across all continents except Antarctica
                                 </Typography>
-                                <Chip label={pokemon.type} sx={{ fontSize: 13 }} />                                
                               </CardContent>
                             </CardActionArea>
                             <CardActions>
@@ -110,4 +109,4 @@ const App = () => {
   )
 }
 
-export default App
+export default appPokemonOlder
