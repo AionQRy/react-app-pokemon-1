@@ -23,7 +23,6 @@ const List = () =>{
         <li>Fourth Link</li>
     </ul>
 )}
-
 const Footer = () => {
   return (
     <MainFooter>
@@ -37,16 +36,6 @@ const Footer = () => {
                         <List/>
                     </Grid>
                 </Grid>         
-            </Box>
-            <Box>
-                <Grid container>
-                    <Grid item xs={12} sm={6} md={6}>
-                        <span>Copyright © 2022, Pokemon MUI , All right reserved.</span>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={6}>
-                        <List/>
-                    </Grid>
-                </Grid>  
             </Box>
             
         </Container>

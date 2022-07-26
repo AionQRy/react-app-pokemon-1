@@ -80,7 +80,7 @@ const App = () => {
       <CssBaseline />
       <MyContainer>
         <Container maxWidth="lg" sx={{ bgcolor: grey[200] , height: 'auto', pt: "5em", pb: "5em" }}>
-          <Box>
+          <Box sx={{ background: "#fff", padding: "2em" }}>
             <TextField 
             id="outlined-basic" 
             label="Search Your Pokemon !!" 
@@ -89,7 +89,7 @@ const App = () => {
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
             />
-    <Autocomplete
+    {/* <Autocomplete
         freeSolo
         id="free-solo-2-demo"
         disableClearable
@@ -106,7 +106,7 @@ const App = () => {
             onChange={(event) => setFilter(event.target.value)}
           />
         )}
-      />
+      /> */}
           <Typography variant="h1" component="h2">
             {filter}
           </Typography>
@@ -116,7 +116,7 @@ const App = () => {
                     
                       {
                         pokemon.map( (pokemon) => (
-                          <Grid key={pokemon.id} item xs={6} sm={4} md={3}>
+                          <Grid key={pokemon.id} item xs={12} sm={4} md={3}>
                           <CustomizedCard className={`CardPokemon cardPokemon-${pokemon.name.english} type-${pokemon.type[0].toLowerCase()}`}>
                             <CardActionArea>
                               <CardMedia
