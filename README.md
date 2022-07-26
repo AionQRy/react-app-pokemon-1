@@ -9,4 +9,4 @@ Open [http://localhost:3001](http://localhost:3001).
 
 # Lineage
 
-Pokemon Mui Basic fetch data from json
+Search Pokemon Mui Basic fetch data from json
