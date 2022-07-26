@@ -18,6 +18,7 @@ import Footer from './component/Footer/Footer';
 import CardPokemon from './component/Pokemon/Card/CardPokemon';
 
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import Autocomplete from '@mui/material/Autocomplete';
 // import bgPokemon from './images/bg-pokemon.webp';
 
 const MyContainer = styled('div')({
@@ -25,7 +26,42 @@ const MyContainer = styled('div')({
   backgroundColor: grey[200],
   padding: 8,
   borderRadius: 0,
-})
+});
+
+const CustomizedCard = styled(Card)`
+  .water {
+    background: #aabaed8c;
+    color: #174aee;
+  }
+  .fire {
+    background: #edac8470;
+    color: #fb731b;
+  }
+  .grass {
+    background: #5c9a6f66;
+    color: #069131;
+  }
+  .poison {
+    background: #673ab76b;
+    color: #6c2ce0;
+  }
+  .flying {
+    background: #52a0c34d;
+    color: #0e7aab;
+  }
+  .bug {
+    background: #8ac56975;
+    color: #2b7800;
+  }
+  .electric {
+    background: #ffc80096;
+    color: #8b8000;
+  }
+  .fairy {
+    background: #f2cdd596;
+    color: #fa3d66;
+  }
+`;
 
 const App = () => {
   const {
@@ -53,7 +89,24 @@ const App = () => {
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
             />
-
+    <Autocomplete
+        freeSolo
+        id="free-solo-2-demo"
+        disableClearable
+        options={pokemon.map((option) => option.name.english)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Search input"
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+            value={filter}
+            onChange={(event) => setFilter(event.target.value)}
+          />
+        )}
+      />
           <Typography variant="h1" component="h2">
             {filter}
           </Typography>
@@ -64,7 +117,7 @@ const App = () => {
                       {
                         pokemon.map( (pokemon) => (
                           <Grid key={pokemon.id} item xs={6} sm={4} md={3}>
-                          <Card className={`CardPokemon cardPokemon-${pokemon.name.english} type-${pokemon.type[0].toLowerCase()}`}>
+                          <CustomizedCard className={`CardPokemon cardPokemon-${pokemon.name.english} type-${pokemon.type[0].toLowerCase()}`}>
                             <CardActionArea>
                               <CardMedia
                                 component="img"
@@ -104,10 +157,10 @@ const App = () => {
                               '&:hover': {
                                 backgroundColor: teal[800],
                               },}}>
-                              <AddCircleOutlineOutlinedIcon /> Select
+                              <AddCircleOutlineOutlinedIcon sx={{pr: "3px"}} /> Select
                               </Button>
                             </CardActions>
-                          </Card>
+                          </CustomizedCard>
                           </Grid>
                         ))
                       }                               
